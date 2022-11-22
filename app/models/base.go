@@ -1,10 +1,13 @@
 package models
 
 import (
+	"crypto/sha1"
 	"database/sql"
 	"fmt"
 	"log"
 	"todo_app/config"
+
+	"github.com/google/uuid"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -31,4 +34,14 @@ func init() {
 		password STRING,
 		created_at DATETIME)`, tableNameUser)
 	Db.Exec(cmdU)
+}
+
+func createUUID() (uuidobj uuid.UUID) {
+	uuidobj, _ = uuid.NewUUID()
+	return uuidobj
+}
+
+func Encript(planetext string) (cryptext string) {
+	cryptext = fmt.Sprintf("%x", sha1.Sum([]byte(planetext)))
+	return cryptext
 }
