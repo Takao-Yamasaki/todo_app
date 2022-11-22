@@ -15,7 +15,7 @@ type User struct {
 }
 
 func (u *User) CreateUser() (err error) {
-	cmd := `insert into users(
+	cmd := `insert into users (
 		uuid,
 		name,
 		email,
@@ -26,8 +26,8 @@ func (u *User) CreateUser() (err error) {
 		createUUID(),
 		u.Name,
 		u.Email,
-		Encript(u.PassWord),
-		u.CreatedAt)
+		Encrypt(u.PassWord),
+		time.Now())
 
 	if err != nil {
 		log.Fatalln(err)
@@ -37,7 +37,7 @@ func (u *User) CreateUser() (err error) {
 
 func GetUser(id int) (user User, err error) {
 	user = User{}
-	cmd := `select user, uuid, name, email, password, created_at
+	cmd := `select id, uuid, name, email, password, created_at
 	from users where id = ?`
 	err = Db.QueryRow(cmd, id).Scan(
 		&user.ID,

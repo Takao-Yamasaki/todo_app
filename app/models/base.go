@@ -41,7 +41,7 @@ func createUUID() (uuidobj uuid.UUID) {
 	return uuidobj
 }
 
-func Encript(planetext string) (cryptext string) {
+func Encrypt(planetext string) (cryptext string) {
 	cryptext = fmt.Sprintf("%x", sha1.Sum([]byte(planetext)))
 	return cryptext
 }
